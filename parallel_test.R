@@ -30,6 +30,7 @@ for (i in 1:(length(colon_list)/2)) {
     p_value_colon[i,6]=0
   }
 }
+p_value_colon[,4]=p.adjust(as.numeric( p_value_colon[,4]),method = "fdr")
 
 
 ###melanoma
@@ -52,10 +53,12 @@ for (i in 1:(length(melanoma_list)/2)) {
     p_value_melanoma[i,6]=0
   }
 }
+p_value_melanoma[,4]=p.adjust(as.numeric( p_value_melanoma[,4]),method = "fdr")
+
+
 
 ###oesophagus
 p_value_oesophagus=matrix(data=0,nrow = length(oesophagus_list)/2,ncol = 6)
-
 
 for (i in 1:(length(oesophagus_list)/2)) {
   p_value_oesophagus[i,1]=substr(paste(names(oesophagus_list[2*i-1])),17,50)
@@ -72,9 +75,8 @@ for (i in 1:(length(oesophagus_list)/2)) {
   else{
     p_value_oesophagus[i,6]=0
   }
-  
 }
-
+p_value_oesophagus[,4]=p.adjust(as.numeric( p_value_oesophagus[,4]),method = "fdr")
 
 ###stomach
 p_value_stomach=matrix(data=0,nrow = length(stomach_list)/2,ncol = 6)
@@ -95,7 +97,7 @@ for (i in 1:(length(stomach_list)/2)) {
     p_value_stomach[i,6]=0
   }
 }
-
+p_value_stomach[,4]=p.adjust(as.numeric( p_value_stomach[,4]),method = "fdr")
 
 
 ###pancreas
@@ -117,10 +119,10 @@ for (i in 1:(length(pancreas_list)/2)) {
     p_value_pancreas[i,6]=0
   }
 }
+p_value_pancreas[,4]=p.adjust(as.numeric( p_value_pancreas[,4]),method = "fdr")
 
 ###lusc
 p_value_lusc=matrix(data=0,nrow = length(lusc_list)/2,ncol = 6)
-
 
 for (i in 1:(length(lusc_list)/2)) {
   p_value_lusc[i,1]=substr(paste(names(lusc_list[2*i-1])),11,50)
@@ -138,11 +140,10 @@ for (i in 1:(length(lusc_list)/2)) {
     p_value_lusc[i,6]=0
   }
 }
-
+p_value_lusc[,4]=p.adjust(as.numeric( p_value_lusc[,4]),method = "fdr")
 
 ###luad
 p_value_luad=matrix(data=0,nrow = length(luad_list)/2,ncol = 6)
-
 
 for (i in 1:(length(luad_list)/2)) {
   p_value_luad[i,1]=substr(paste(names(luad_list[2*i-1])),11,50)
@@ -160,11 +161,10 @@ for (i in 1:(length(luad_list)/2)) {
     p_value_luad[i,6]=0
   }
 }
-
+p_value_luad[,4]=p.adjust(as.numeric( p_value_luad[,4]),method = "fdr")
 
 ###liver
 p_value_liver=matrix(data=0,nrow = length(liver_list)/2,ncol = 6)
-
 
 for (i in 1:(length(liver_list)/2)) {
   p_value_liver[i,1]=substr(paste(names(liver_list[2*i-1])),12,50)
@@ -182,12 +182,11 @@ for (i in 1:(length(liver_list)/2)) {
     p_value_liver[i,6]=0
   }
 }
-
+p_value_liver[,4]=p.adjust(as.numeric( p_value_liver[,4]),method = "fdr")
 
 
 ###kindey
 p_value_kindey=matrix(data=0,nrow = length(kindey_list)/2,ncol = 6)
-
 
 for (i in 1:(length(kindey_list)/2)) {
   p_value_kindey[i,1]=substr(paste(names(kindey_list[2*i-1])),13,50)
@@ -205,12 +204,11 @@ for (i in 1:(length(kindey_list)/2)) {
     p_value_kindey[i,6]=0
   }
 }
-
+p_value_kindey[,4]=p.adjust(as.numeric( p_value_kindey[,4]),method = "fdr")
 
 
 ###bladder
 p_value_bladder=matrix(data=0,nrow = length(bladder_list)/2,ncol = 6)
-
 
 for (i in 1:(length(bladder_list)/2)) {
   p_value_bladder[i,1]=substr(paste(names(bladder_list[2*i-1])),14,50)
@@ -228,11 +226,10 @@ for (i in 1:(length(bladder_list)/2)) {
     p_value_bladder[i,6]=0
   }
 }
-
+p_value_bladder[,4]=p.adjust(as.numeric( p_value_bladder[,4]),method = "fdr")
 
 ###rectum
 p_value_rectum=matrix(data=0,nrow = length(rectum_list)/2,ncol = 6)
-
 
 for (i in 1:(length(rectum_list)/2)) {
   p_value_rectum[i,1]=substr(paste(names(rectum_list[2*i-1])),13,50)
@@ -250,6 +247,9 @@ for (i in 1:(length(rectum_list)/2)) {
     p_value_rectum[i,6]=0
   }
 }
+p_value_rectum[,4]=p.adjust(as.numeric( p_value_rectum[,4]),method = "fdr")
+
+
 
 colnames(p_value_colon)=c("country", "beta", "SE","p_value","R2","Parallel")
 colnames(p_value_bladder)=c("country", "beta", "SE","p_value","R2","Parallel")
