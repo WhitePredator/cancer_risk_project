@@ -1,4 +1,4 @@
-load("D:\\my_study\\Project\\cancer_risk\\data\\country.Rdata")
+load("D:\\my_study\\Project\\cancer_risk\\data_git\\country.Rdata")
 
 t_life=c(2,7,12,17,22,27,32,37,42,47,52,57,62,67,72,77,82,87)
 t=c(32,37,42,47,52,57,62,67)

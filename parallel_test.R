@@ -3,7 +3,7 @@ t=c(32,37,42,47,52,57,62,67)
 sex=c(rep(1,8),rep(0,8))
 t2=log10(rep(t,2))
 
-load("D:\\my_study\\Project\\cancer_risk\\data\\lm.Rdata")
+load("D:\\my_study\\Project\\cancer_risk\\data_git\\lm.Rdata")
 
 delta=0.6  #等效（平行）检验边界
 beta3_threshold=0.3
