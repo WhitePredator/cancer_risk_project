@@ -52,7 +52,7 @@ sex=c(rep(1,8),rep(0,8))
 t_log=log10(rep(t,2))
 delta=1  #等效（平行）检验边界
 beta3_threshold=0.5
-R2__threshold=0.9
+R2__threshold=0.95
 country_cancer_test_list=list()
 
 
@@ -108,7 +108,8 @@ for (k in 1:(cancer_num*country_num)) {
 }
 rownames(cancer_country_test_matrix)=paste(rep(rownames(cancer_dict),each=country_num),'_',rep(country_dict,cancer_num),sep='')
 colnames(cancer_country_test_matrix)=colnames(test_matrix)
-cancer_country_test_matrix[,3]=p.adjust(cancer_country_test_matrix[,3],method = "fdr")
+#cancer_country_test_matrix[,3]=p.adjust(cancer_country_test_matrix[,3],method = "fdr")
+cancer_country_test_matrix[,3]=p.adjust(cancer_country_test_matrix[,3],method = "bonferroni")
 cancer_country_test_matrix[which(cancer_country_test_matrix[,3]<=0.05),5]=1
 cancer_country_test_matrix[which(cancer_country_test_matrix[,3]>0.05),5]=0
 result_simple=cancer_country_test_matrix[,c(3,5,6,13)]

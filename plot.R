@@ -1,72 +1,28 @@
-t=c(32,37,42,47,52,57,62,67)
+#load("D:/my_study/Project/cancer_risk/data_git/new_result.Rdata")
+log_t=log10(t)
 
 
-par(mfrow=c(3,3))
+country_id=8
+cancer_id=2
 
-for (i in 1:9) {
-    plot(log10(t),log10(bladder_list[[2*i-1]]),col="blue",xlab = "age",ylab = "incidence",main = substr(paste(names(bladder_list[2*i-1])),14,50))
-    abline(lm(log10(bladder_list[[2*i-1]])~log10(t)),col="blue")
-    points(log10(t),log10(bladder_list[[2*i]]),col="red")
-    abline(lm(log10(bladder_list[[2*i]])~log10(t)),col="red")
+par(pin=c(3,2.5))
+plot(log_t,log10(country_cancer_list[[country_id]][2*cancer_id-1,]),col="blue",xlab = "age",ylab = "incidence",main = paste(rownames(cancer_dict)[cancer_id],'_',names(country_cancer_list)[country_id],sep=''))
+abline(lm(log10(country_cancer_list[[country_id]][2*cancer_id-1,])~log_t),col="blue")
+points(log_t,log10(country_cancer_list[[country_id]][2*cancer_id,]),col="red")
+abline(lm(log10(country_cancer_list[[country_id]][2*cancer_id,])~log_t),col="red")
     
-}
 
 
-for (i in 1:9) {
-  plot(log10(t),log10(colon_list[[2*i-1]]),col="blue",xlab = "age",ylab = "incidence",main = substr(paste(names(colon_list[2*i-1])),12,50))
-  abline(lm(log10(colon_list[[2*i-1]])~log10(t)),col="blue")
-  points(log10(t),log10(colon_list[[2*i]]),col="red")
-  abline(lm(log10(colon_list[[2*i]])~log10(t)),col="red")
+
+
+
+
+#for (i in 1:9) {
+  #plot(log10(t),log10(luad_list[[2*i-1]]+10^-100),col="blue",xlab = "age",ylab = "incidence",main = substr(paste(names(luad_list[2*i-1])),11,50))
+  #abline(lm(log10(luad_list[[2*i-1]]+10^-100)~log10(t)),col="blue")
+  #points(log10(t),log10(luad_list[[2*i]]+10^-100),col="red")
+  #abline(lm(log10(luad_list[[2*i]]+10^-100)~log10(t)),col="red")
   
-}
+#}
 
 
-for (i in 1:9) {
-  plot(log10(t),log10(melanoma_list[[2*i-1]]),col="blue",xlab = "age",ylab = "incidence",main = substr(paste(names(melanoma_list[2*i-1])),15,50))
-  abline(lm(log10(melanoma_list[[2*i-1]])~log10(t)),col="blue")
-  points(log10(t),log10(melanoma_list[[2*i]]),col="red")
-  abline(lm(log10(melanoma_list[[2*i]])~log10(t)),col="red")
-  
-}
-
-for (i in 1:9) {
-  plot(log10(t),log10(lusc_list[[2*i-1]]+10^-100),col="blue",xlab = "age",ylab = "incidence",main = substr(paste(names(lusc_list[2*i-1])),11,50))
-  abline(lm(log10(lusc_list[[2*i-1]]+10^-100)~log10(t)),col="blue")
-  points(log10(t),log10(lusc_list[[2*i]]+10^-100),col="red")
-  abline(lm(log10(lusc_list[[2*i]]+10^-100)~log10(t)),col="red")
-  
-}
-
-for (i in 1:9) {
-  plot(log10(t),log10(stomach_list[[2*i-1]]+10^-100),col="blue",xlab = "age",ylab = "incidence",main = substr(paste(names(stomach_list[2*i-1])),14,50))
-  abline(lm(log10(stomach_list[[2*i-1]]+10^-100)~log10(t)),col="blue")
-  points(log10(t),log10(stomach_list[[2*i]]+10^-100),col="red")
-  abline(lm(log10(stomach_list[[2*i]]+10^-100)~log10(t)),col="red")
-  
-}
-
-
-for (i in 1:9) {
-  plot(log10(t),log10(liver_list[[2*i-1]]+10^-100),col="blue",xlab = "age",ylab = "incidence",main = substr(paste(names(liver_list[2*i-1])),12,50))
-  abline(lm(log10(liver_list[[2*i-1]]+10^-100)~log10(t)),col="blue")
-  points(log10(t),log10(liver_list[[2*i]]+10^-100),col="red")
-  abline(lm(log10(liver_list[[2*i]]+10^-100)~log10(t)),col="red")
-  
-}
-
-for (i in 1:9) {
-  plot(log10(t),log10(luad_list[[2*i-1]]+10^-100),col="blue",xlab = "age",ylab = "incidence",main = substr(paste(names(luad_list[2*i-1])),11,50))
-  abline(lm(log10(luad_list[[2*i-1]]+10^-100)~log10(t)),col="blue")
-  points(log10(t),log10(luad_list[[2*i]]+10^-100),col="red")
-  abline(lm(log10(luad_list[[2*i]]+10^-100)~log10(t)),col="red")
-  
-}
-
-
-for (i in 1:9) {
-  plot(log10(t),log10(lusc_list[[2*i-1]]+10^-100),col="blue",xlab = "age",ylab = "incidence",main = substr(paste(names(lusc_list[2*i-1])),11,50))
-  abline(lm(log10(lusc_list[[2*i-1]]+10^-100)~log10(t)),col="blue")
-  points(log10(t),log10(lusc_list[[2*i]]+10^-100),col="red")
-  abline(lm(log10(lusc_list[[2*i]]+10^-100)~log10(t)),col="red")
-  
-}
