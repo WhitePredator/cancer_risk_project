@@ -48,7 +48,7 @@ eval(parse(text=paste(paste('country_cancer_list[["',country_dict[j],'"]]=',sep=
 
 #### parallel  test
 
-sex=c(rep(1,8),rep(0,8))
+sex=c(rep("male",8),rep("female",8))
 t_log=log10(rep(t,2))
 delta=1  #等效（平行）检验边界
 beta3_threshold=0.5
@@ -63,13 +63,13 @@ for (j in 1:country_num) {
   for (i in 1:cancer_num) {
     cancer_log=log10(rbind(country_cancer_list[[j]][2*i-1,],country_cancer_list[[j]][2*i,])+10^-100)   #+10^-100防止出现log(0)
     cancer_log=as.vector(t(cancer_log))
-    fit=summary(lm(cancer_log~t_log+sex+sex*t_log))
+    fit=summary(lm(cancer_log~t_log+factor(sex)+factor(sex)*t_log))
     test_matrix[i,1]=fit[[4]][4,1] 
     test_matrix[i,2]=fit[[4]][4,2]
     test_matrix[i,3]=fit[[4]][4,4] 
     test_matrix[i,4]=fit[[8]]
     ######Equivalence_test
-    if ((fit[[4]][4,1] + 1.96*fit[[4]][4,2] <= delta) & (fit[[4]][4,1] - 1.96*fit[[4]][4,2] >= -delta) & (abs(fit[[4]][4,1]) <= beta3_threshold) & fit[[8]] >= R2__threshold) {
+    if ((fit[[4]][4,1] + 1.96*fit[[4]][4,2] <= delta) & (fit[[4]][4,1] - 1.96*fit[[4]][4,2] >= -delta) & (abs(fit[[4]][4,1]) <= beta3_threshold) ) {
       test_matrix[i,6]=1  #  1代表平行
     }
     else{
@@ -87,8 +87,7 @@ for (j in 1:country_num) {
     test_matrix[i,11]=beta2_test[[4]][2,2]
     test_matrix[i,12]=beta2_test[[8]]
     if ((test_matrix[i,7] >= test_matrix[i,10] - 1.96*test_matrix[i,11]) & (test_matrix[i,7] <= test_matrix[i,10] + 1.96*test_matrix[i,11]) 
-        & (test_matrix[i,10] >= test_matrix[i,7] - 1.96*test_matrix[i,8]) & (test_matrix[i,10] <= test_matrix[i,7] + 1.96*test_matrix[i,8]) 
-        & beta1_test[[8]]>=R2__threshold & beta2_test[[8]]>=R2__threshold) {
+        & (test_matrix[i,10] >= test_matrix[i,7] - 1.96*test_matrix[i,8]) & (test_matrix[i,10] <= test_matrix[i,7] + 1.96*test_matrix[i,8]) ) {
       test_matrix[i,13]=1
     }
   }
@@ -108,10 +107,14 @@ for (k in 1:(cancer_num*country_num)) {
 }
 rownames(cancer_country_test_matrix)=paste(rep(rownames(cancer_dict),each=country_num),'_',rep(country_dict,cancer_num),sep='')
 colnames(cancer_country_test_matrix)=colnames(test_matrix)
+p_value_adjusted=matrix(data=0,nrow =cancer_num*country_num ,ncol = 1)
 #cancer_country_test_matrix[,3]=p.adjust(cancer_country_test_matrix[,3],method = "fdr")
-cancer_country_test_matrix[,3]=p.adjust(cancer_country_test_matrix[,3],method = "bonferroni")
-cancer_country_test_matrix[which(cancer_country_test_matrix[,3]<=0.05),5]=1
-cancer_country_test_matrix[which(cancer_country_test_matrix[,3]>0.05),5]=0
-result_simple=cancer_country_test_matrix[,c(3,5,6,13)]
+p_value_adjusted=p.adjust(cancer_country_test_matrix[,3],method = "bonferroni")
+cancer_country_test_matrix[which(p_value_adjusted<=0.05),5]=1
+cancer_country_test_matrix[which(p_value_adjusted>0.05),5]=0
+result_simple=cbind(cancer_country_test_matrix[,3],p_value_adjusted) 
+result_simple=cbind(result_simple,cancer_country_test_matrix[,c(5,6,13)])
+colnames(result_simple)[1]="p_value"
+colnames(result_simple)[5]="CI_test"
 save(result_simple, country_cancer_list,country_cancer_test_list,cancer_country_test_matrix,country_dict,cancer_dict,t,t_log,delta,sex,beta3_threshold,cancer_num,country_num,
      file = "D:\\my_study\\Project\\cancer_risk\\data_git\\new_result.Rdata")

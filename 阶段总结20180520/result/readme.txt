@@ -1,0 +1,3 @@
+1. result_simple文件中为平行/不平行的检验结果，p_value_adjusted列为经过bonferroni方法调整过的p value。unparallel_test检验结果1为阳性，即不平行；0为阴性，即平行。Equivalence_test检验结果1为阳性，即平行；0为阴性，即不平行。CI_test检验结果1为阳性，即平行；0为阴性，即不平行。
+
+2.lusc_white_count/melanoma_white_count/stomach_white_count三个文件为对应三种癌种差异突变基因的检验结果，这三个癌种均检验出差异突变基因。第一列为基因名。2-4列female_1表示女性样本中该基因突变的样本数量，female_0表示女性样本中该基因没有突变的样本数量，male_1\male_0同理。adjusted_p_value列为经过bonferroni方法调整过的p value。

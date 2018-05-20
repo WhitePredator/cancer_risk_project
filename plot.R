@@ -2,8 +2,8 @@
 log_t=log10(t)
 
 
-country_id=11
-cancer_id=9
+country_id=2
+cancer_id=6
 
 par(pin=c(3,2.5))
 plot(log_t,log10(country_cancer_list[[country_id]][2*cancer_id-1,]),col="blue",xlab = "age",ylab = "incidence",main = paste(rownames(cancer_dict)[cancer_id],'_',names(country_cancer_list)[country_id],sep=''))
